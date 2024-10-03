@@ -8,10 +8,15 @@ const CartItem = ({ onContinueShopping }) => {
   const dispatch = useDispatch();
 
   // Calculate total amount for all products in the cart
-  const calculateTotalAmount = () => {
-    return cart.reduce((total, item) => total + (item.cost * item.quantity), 0).toFixed(2);
-  };
-
+//   const calculateTotalAmount = () => {
+//     return cart.reduce((total, item) => total + (item.cost * item.quantity), 0).toFixed(2);
+//   };
+const calculateTotalAmount = () => {
+  return cart.reduce((total, item) => {
+    const numericCost = parseFloat(item.cost.replace('$', '')); // Remove the $ and convert to number
+    return total + (numericCost * item.quantity);
+  }, 0).toFixed(2);
+};
   // Calculate total cost based on quantity for an item
   const calculateTotalCost = (item) => {
     return (item.cost * item.quantity).toFixed(2);
